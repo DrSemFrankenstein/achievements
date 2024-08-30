@@ -1,72 +1,85 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { DatePicker, List, Button, Input, Checkbox, Select } from "antd";
-import dayjs from "dayjs";  // Import dayjs instead of moment
 import {
-  addTask,
-  updateTask,
-  deleteTask,
-  toggleTaskCompletion,
-} from "../Redux/todoSlice";
+  DatePicker,
+  List,
+  Button,
+  Input,
+  Checkbox,
+  Select,
+} from "antd";
+import dayjs from "dayjs";
 import { v4 as uuidv4 } from "uuid";
+import { addTask, toggleTaskCompletion, deleteTask } from "../../Redux/dailyGoalsSlice";
 
 const { Option } = Select;
 
 const categories = [
-  { key: "morningTasks", label: "Что я собираюсь достичь сегодня?" },
-  { key: "morningSuccess", label: "Как я могу сделать день успешным?" },
-  { key: "eveningImprovements", label: "Что пошло не так и как я могу улучшить?" },
-  { key: "gratitude", label: "За что я благодарен?" },
-  { key: "weeklySuccess", label: "Основные успехи за неделю." },
-  { key: "weeklyLearnings", label: "Чему я научился за неделю?" },
-  { key: "weeklyImprovements", label: "В чём я хочу улучшиться?" },
+  { key: "morningTasks", label: "What do I plan to achieve today?" },
+  { key: "morningSuccess", label: "How can I make the day successful?" },
+  {
+    key: "eveningImprovements",
+    label: "What went wrong and how can I improve?",
+  },
+  { key: "gratitude", label: "What am I grateful for?" },
 ];
 
-const TodoComponent = () => {
-  const [date, setDate] = useState(dayjs());  // Initialize with today's date
+const DailyGoalsComponent = () => {
+  const [date, setDate] = useState(dayjs());
   const [newTask, setNewTask] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(categories[0].key);
+
   const tasks = useSelector((state) =>
-    date ? state.todo.tasksByDate[date.format("YYYY-MM-DD")] || {} : {}
+    date ? state.dailyGoals.tasksByDate[date.format("YYYY-MM-DD")] || {} : {}
   );
+
   const dispatch = useDispatch();
 
+  // Calculate the number of morningTasks
+  const morningTasksCount = tasks.morningTasks ? tasks.morningTasks.length : 0;
+
   const handleDateChange = (date) => {
-    setDate(date ? dayjs(date) : dayjs()); // Convert date to dayjs format
+    setDate(date ? dayjs(date) : dayjs());
   };
 
   const handleAddTask = () => {
     if (newTask.trim() && date) {
-      dispatch(addTask({
-        date: date.format("YYYY-MM-DD"),
-        category: selectedCategory,  // Include the category in the payload
-        task: {
-          id: uuidv4(),
-          text: newTask,
-          completed: false,
-        },
-      }));
+      dispatch(
+        addTask({
+          date: date.format("YYYY-MM-DD"),
+          category: selectedCategory,
+          task: {
+            id: uuidv4(),
+            text: newTask,
+            completed: false,
+          },
+        })
+      );
       setNewTask("");
     }
   };
 
-  const handleToggleCompletion = (taskId) => {
+  const handleToggleCompletion = (taskId, category) => {
     if (date) {
-      dispatch(toggleTaskCompletion({
-        date: date.format("YYYY-MM-DD"),
-        category: selectedCategory,  // Include the category in the payload
-        taskId,
-      }));
+      dispatch(
+        toggleTaskCompletion({
+          date: date.format("YYYY-MM-DD"),
+          category, // Pass the correct category here
+          taskId,
+        })
+      );
     }
   };
 
-  const handleDeleteTask = (taskId) => {
+  const handleDeleteTask = (taskId, category) => {
     if (date) {
-      dispatch(deleteTask({
-        date: date.format("YYYY-MM-DD"),
-        category: selectedCategory,  // Include the category in the payload
-        taskId,
-      }));
+      dispatch(
+        deleteTask({
+          date: date.format("YYYY-MM-DD"),
+          category, // Pass the correct category here
+          taskId,
+        })
+      );
     }
   };
 
@@ -83,18 +96,18 @@ const TodoComponent = () => {
               actions={[
                 <Button
                   type="link"
-                  onClick={() => handleToggleCompletion(task.id)}
+                  onClick={() => handleToggleCompletion(task.id, category.key)}
                 >
                   {task.completed ? "Undo" : "Complete"}
                 </Button>,
-                <Button type="link" onClick={() => handleDeleteTask(task.id)}>
+                <Button type="link" onClick={() => handleDeleteTask(task.id, category.key)}>
                   Delete
                 </Button>,
               ]}
             >
               <Checkbox
                 checked={task.completed}
-                onChange={() => handleToggleCompletion(task.id)}
+                onChange={() => handleToggleCompletion(task.id, category.key)}
               >
                 {task.text}
               </Checkbox>
@@ -107,6 +120,9 @@ const TodoComponent = () => {
 
   return (
     <div>
+      <h2 style={{ textAlign: "center" }}>
+        Daily Goals ({morningTasksCount} Morning Tasks)
+      </h2>
       <DatePicker
         onChange={handleDateChange}
         value={date}
@@ -141,4 +157,4 @@ const TodoComponent = () => {
   );
 };
 
-export default TodoComponent;
+export default DailyGoalsComponent;

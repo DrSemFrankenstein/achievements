@@ -3,7 +3,7 @@ import { Upload, Input, Card, Typography, Image, Button, Row, Col } from "antd";
 import ImgCrop from "antd-img-crop";
 import { PlusOutlined, EditOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
-import { setImage, setName, setDescription } from "../Redux/aboutSlice";
+import { setImage, setName, setDescription } from "../../Redux/aboutSlice";
 import "antd/dist/reset.css";
 import UserFormModal from "./UserFormModal";
 
@@ -48,7 +48,6 @@ const AboutComponent = () => {
   );
 
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [formData, setFormData] = useState(null);
 
   const handleOpenModal = () => {
     setIsModalVisible(true);
@@ -59,15 +58,17 @@ const AboutComponent = () => {
   };
 
   const handleSubmitForm = (data) => {
-    setFormData(data);
+    const story = generateStory(data);
+    dispatch(setName(data?.name || "")); // Update the name in the store
+    dispatch(setDescription(story)); // Set the generated story as the description
     handleCloseModal();
     console.log("Form Data:", data);
-    dispatch(generateStory(data));
   };
 
   const generateStory = (data) => {
     return `
-      ${data?.name}, born on ${data?.dob?.format("MMMM D, YYYY")}
+      ${data?.name || 'User'}, born on ${data?.dob?.format("MMMM D, YYYY") || 'an unknown date'},
+      ${data?.description || 'has a lot of achievements to be proud of!'}
     `;
   };
 
@@ -117,9 +118,15 @@ const AboutComponent = () => {
           </Col>
         </Row>
 
-        <Row gutter={[16, 16]} justify="center" >
+        <Row gutter={[16, 16]} justify="center">
           <Col xs={24} sm={20} md={16} lg={12}>
-            <Card style={{marginTop:'40px', textAlign: "center", position: "relative" }}>
+            <Card
+              style={{
+                marginTop: "40px",
+                textAlign: "center",
+                position: "relative",
+              }}
+            >
               <Button
                 icon={<EditOutlined />}
                 onClick={handleOpenModal}

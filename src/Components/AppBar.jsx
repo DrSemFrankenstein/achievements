@@ -28,17 +28,14 @@ const AppBar = () => {
         <Link to="/">Home</Link>
       </Menu.Item>
       <Menu.Item key="2" onClick={handleMenuClick}>
-        <Link to="/profile">Profile</Link>
-      </Menu.Item>
-      <Menu.Item key="3" onClick={handleMenuClick}>
         <Link to="/goals">Goals</Link>
       </Menu.Item>
-      <Menu.Item key="4" onClick={handleMenuClick}>
+      <Menu.Item key="3" onClick={handleMenuClick}>
+        <Link to="/profile">Profile</Link>
+      </Menu.Item>
+      {/* <Menu.Item key="4" onClick={handleMenuClick}>
         <Link to="/settings">Settings</Link>
-      </Menu.Item>
-      <Menu.Item key="5" onClick={handleMenuClick}>
-        Logout
-      </Menu.Item>
+      </Menu.Item> */}
     </Menu>
   );
 
@@ -63,17 +60,14 @@ const AppBar = () => {
             <Link to="/">Home</Link>
           </Menu.Item>
           <Menu.Item key="2" onClick={handleMenuClick}>
-            <Link to="/profile">Profile</Link>
-          </Menu.Item>
-          <Menu.Item key="3" onClick={handleMenuClick}>
             <Link to="/goals">Goals</Link>
           </Menu.Item>
-          <Menu.Item key="4" onClick={handleMenuClick}>
+          <Menu.Item key="3" onClick={handleMenuClick}>
+            <Link to="/profile">Profile</Link>
+          </Menu.Item>
+          {/* <Menu.Item key="4" onClick={handleMenuClick}>
             <Link to="/settings">Settings</Link>
-          </Menu.Item>
-          <Menu.Item key="5" onClick={handleMenuClick}>
-            Logout
-          </Menu.Item>
+          </Menu.Item> */}
         </Menu>
       </Drawer>
 

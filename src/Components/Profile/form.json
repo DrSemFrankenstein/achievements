@@ -1,0 +1,209 @@
+{
+    "title": "Fill in Your Details",
+    "fields": [
+      {
+        "name": "name",
+        "label": "Name",
+        "type": "text",
+        "rules": {
+          "required": true,
+          "message": "Please enter your name"
+        }
+      },
+      {
+        "name": "dob",
+        "label": "Date of Birth",
+        "type": "date",
+        "rules": {
+          "required": true,
+          "message": "Please select your date of birth"
+        }
+      },
+      {
+        "name": "gender",
+        "label": "Gender",
+        "type": "select",
+        "options": [
+          { "value": "male", "label": "Male" },
+          { "value": "female", "label": "Female" },
+          { "value": "other", "label": "Other" }
+        ],
+        "rules": {
+          "required": true,
+          "message": "Please select your gender"
+        }
+      },
+      {
+        "name": "jobTitle",
+        "label": "Job Title",
+        "type": "select",
+        "options": [
+          { "value": "softwareEngineer", "label": "Software Engineer" },
+          { "value": "dataScientist", "label": "Data Scientist" },
+          { "value": "productManager", "label": "Product Manager" },
+          { "value": "designer", "label": "Designer" },
+          { "value": "doctor", "label": "Doctor" },
+          { "value": "teacher", "label": "Teacher" },
+          { "value": "nurse", "label": "Nurse" },
+          { "value": "lawyer", "label": "Lawyer" },
+          { "value": "engineer", "label": "Engineer" },
+          { "value": "marketingSpecialist", "label": "Marketing Specialist" },
+          { "value": "salesManager", "label": "Sales Manager" },
+          { "value": "chef", "label": "Chef" },
+          { "value": "pilot", "label": "Pilot" },
+          { "value": "mechanic", "label": "Mechanic" },
+          { "value": "accountant", "label": "Accountant" },
+          { "value": "pharmacist", "label": "Pharmacist" },
+          { "value": "journalist", "label": "Journalist" },
+          { "value": "architect", "label": "Architect" },
+          { "value": "policeOfficer", "label": "Police Officer" },
+          { "value": "firefighter", "label": "Firefighter" },
+          { "value": "scientist", "label": "Scientist" },
+          { "value": "veterinarian", "label": "Veterinarian" },
+          { "value": "musician", "label": "Musician" },
+          { "value": "actor", "label": "Actor" },
+          { "value": "electrician", "label": "Electrician" },
+          { "value": "plumber", "label": "Plumber" },
+          { "value": "bartender", "label": "Bartender" },
+          { "value": "writer", "label": "Writer" },
+          { "value": "translator", "label": "Translator" },
+          { "value": "socialWorker", "label": "Social Worker" },
+          { "value": "realEstateAgent", "label": "Real Estate Agent" }
+        ],
+        "rules": {
+          "required": true,
+          "message": "Please select your job title"
+        }
+      },
+      {
+        "name": "skills",
+        "label": "Skills",
+        "type": "select",
+        "mode": "multiple",
+        "options": [
+          { "value": "python", "label": "Python" },
+          { "value": "javascript", "label": "JavaScript" },
+          { "value": "java", "label": "Java" },
+          { "value": "react", "label": "React" },
+          { "value": "sql", "label": "SQL" },
+          { "value": "projectManagement", "label": "Project Management" },
+          { "value": "graphicDesign", "label": "Graphic Design" },
+          { "value": "communication", "label": "Communication" },
+          { "value": "teamLeadership", "label": "Team Leadership" },
+          { "value": "machineLearning", "label": "Machine Learning" },
+          { "value": "publicSpeaking", "label": "Public Speaking" },
+          { "value": "customerService", "label": "Customer Service" },
+          { "value": "cooking", "label": "Cooking" },
+          { "value": "firstAid", "label": "First Aid" },
+          { "value": "sales", "label": "Sales" },
+          { "value": "marketing", "label": "Marketing" },
+          { "value": "accounting", "label": "Accounting" },
+          { "value": "negotiation", "label": "Negotiation" },
+          { "value": "writing", "label": "Writing" },
+          { "value": "photography", "label": "Photography" },
+          { "value": "eventPlanning", "label": "Event Planning" },
+          { "value": "bartending", "label": "Bartending" },
+          { "value": "childcare", "label": "Childcare" },
+          { "value": "plumbing", "label": "Plumbing" },
+          { "value": "electrical", "label": "Electrical" },
+          { "value": "carpentry", "label": "Carpentry" },
+          { "value": "autoRepair", "label": "Auto Repair" },
+          { "value": "foreignLanguages", "label": "Foreign Languages" },
+          { "value": "softwareDevelopment", "label": "Software Development" },
+          { "value": "editing", "label": "Editing" },
+          { "value": "dataAnalysis", "label": "Data Analysis" },
+          { "value": "fitnessTraining", "label": "Fitness Training" },
+          { "value": "musicComposition", "label": "Music Composition" }
+        ],
+        "rules": {
+          "required": true,
+          "message": "Please select your skills"
+        }
+      },
+      {
+        "name": "education",
+        "label": "Education",
+        "type": "select",
+        "options": [
+          { "value": "bachelors", "label": "Bachelor's Degree" },
+          { "value": "masters", "label": "Master's Degree" },
+          { "value": "phd", "label": "Ph.D." },
+          { "value": "diploma", "label": "Diploma" },
+          { "value": "highSchool", "label": "High School" },
+          { "value": "certificate", "label": "Certificate" },
+          { "value": "associateDegree", "label": "Associate Degree" }
+        ],
+        "rules": {
+          "required": true,
+          "message": "Please select your education"
+        }
+      },
+      {
+        "name": "armyRank",
+        "label": "Army Rank",
+        "type": "select",
+        "options": [
+          { "value": "private", "label": "Private" },
+          { "value": "sergeant", "label": "Sergeant" },
+          { "value": "lieutenant", "label": "Lieutenant" },
+          { "value": "captain", "label": "Captain" },
+          { "value": "major", "label": "Major" },
+          { "value": "colonel", "label": "Colonel" },
+          { "value": "general", "label": "General" }
+        ],
+        "rules": {
+          "required": true,
+          "message": "Please select your army rank"
+        }
+      },
+      {
+        "name": "branchOfService",
+        "label": "Branch of Service",
+        "type": "select",
+        "options": [
+          { "value": "army", "label": "Army" },
+          { "value": "navy", "label": "Navy" },
+          { "value": "airForce", "label": "Air Force" },
+          { "value": "marines", "label": "Marines" },
+          { "value": "coastGuard", "label": "Coast Guard" },
+          { "value": "spaceForce", "label": "Space Force" }
+        ],
+        "rules": {
+          "required": true,
+          "message": "Please select your branch of service"
+        }
+      },
+      {
+        "name": "hobby",
+        "label": "Hobby",
+        "type": "select",
+        "mode": "multiple",
+        "options": [
+          { "value": "reading", "label": "Reading" },
+          { "value": "traveling", "label": "Traveling" },
+          { "value": "cooking", "label": "Cooking" },
+          { "value": "sports", "label": "Sports" },
+          { "value": "music", "label": "Music" },
+          { "value": "gaming", "label": "Gaming" },
+          { "value": "photography", "label": "Photography" },
+          { "value": "writing", "label": "Writing" },
+          { "value": "gardening", "label": "Gardening" },
+          { "value": "painting", "label": "Painting" }
+        ],
+        "rules": {
+          "required": true,
+          "message": "Please select your hobby"
+        }
+      }
+    ],
+    "buttons": {
+      "cancel": {
+        "label": "Cancel"
+      },
+      "submit": {
+        "label": "Submit",
+        "type": "primary"
+      }
+    }
+  }
+  
