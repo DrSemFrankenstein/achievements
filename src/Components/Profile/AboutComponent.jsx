@@ -3,9 +3,15 @@ import { Upload, Input, Card, Typography, Image, Button, Row, Col } from "antd";
 import ImgCrop from "antd-img-crop";
 import { PlusOutlined, EditOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
-import { setImage, setName, setDescription } from "../../Redux/aboutSlice";
+import {
+  setImage,
+  setName,
+  setDescription,
+  setFormData,
+} from "../../Redux/aboutSlice";
 import "antd/dist/reset.css";
 import UserFormModal from "./UserFormModal";
+import formData from "./formData.json"; // Import the formData JSON
 
 const { Title, Text } = Typography;
 
@@ -19,7 +25,12 @@ const getBase64 = (file) =>
 
 const AboutComponent = () => {
   const dispatch = useDispatch();
-  const { image, name, description } = useSelector((state) => state.about);
+  const {
+    image,
+    name,
+    description,
+    formData: savedFormData,
+  } = useSelector((state) => state.about);
 
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
@@ -58,17 +69,85 @@ const AboutComponent = () => {
   };
 
   const handleSubmitForm = (data) => {
-    const story = generateStory(data);
-    dispatch(setName(data?.name || "")); // Update the name in the store
-    dispatch(setDescription(story)); // Set the generated story as the description
+    const story = generateMotivationStory(data, formData);
+    dispatch(setName(data.name));
+    dispatch(setDescription(story));
+    dispatch(setFormData(data)); // Save the form data in Redux
     handleCloseModal();
-    console.log("Form Data:", data);
   };
 
-  const generateStory = (data) => {
+  const generateMotivationStory = (data, formData) => {
+    const {
+      name,
+      dob,
+      gender,
+      jobTitle,
+      skills,
+      education,
+      armyRank,
+      branchOfService,
+      hobby,
+    } = data;
+
+    const pronoun = gender === "female" ? "She" : "He";
+    const possessivePronoun = gender === "female" ? "Her" : "His";
+
+    const jobTitleLabel =
+      formData.fields
+        .find((field) => field.name === "jobTitle")
+        ?.options.find((option) => option.value === jobTitle)?.label ||
+      jobTitle;
+
+    const educationLabel =
+      formData.fields
+        .find((field) => field.name === "education")
+        ?.options.find((option) => option.value === education)?.label ||
+      education;
+
+    const armyRankLabel =
+      formData.fields
+        .find((field) => field.name === "armyRank")
+        ?.options.find((option) => option.value === armyRank)?.label ||
+      armyRank;
+
+    const branchOfServiceLabel =
+      formData.fields
+        .find((field) => field.name === "branchOfService")
+        ?.options.find((option) => option.value === branchOfService)?.label ||
+      branchOfService;
+
+    const skillsLabels = skills.map(
+      (skill) =>
+        formData.fields
+          .find((field) => field.name === "skills")
+          ?.options.find((option) => option.value === skill)?.label || skill
+    );
+
+    const hobbiesLabels = hobby.map(
+      (hobbyItem) =>
+        formData.fields
+          .find((field) => field.name === "hobby")
+          ?.options.find((option) => option.value === hobbyItem)?.label ||
+        hobbyItem
+    );
+
     return `
-      ${data?.name || 'User'}, born on ${data?.dob?.format("MMMM D, YYYY") || 'an unknown date'},
-      ${data?.description || 'has a lot of achievements to be proud of!'}
+      ${name} was born on ${dob.format(
+      "MMMM D, YYYY"
+    )}. ${pronoun} is a dedicated ${jobTitleLabel}, with an impressive background in ${educationLabel}. 
+      ${possessivePronoun} expertise in ${skillsLabels.join(
+      ", "
+    )} has set ${pronoun.toLowerCase()} apart in ${possessivePronoun.toLowerCase()} career.
+      
+      ${name} has also served ${possessivePronoun.toLowerCase()} country as a ${armyRankLabel} in the ${branchOfServiceLabel}, 
+      where ${pronoun.toLowerCase()} demonstrated outstanding leadership and commitment.
+      
+      Outside of work, ${name} enjoys ${hobbiesLabels.join(
+      ", "
+    )}, which keep ${pronoun.toLowerCase()} balanced and motivated.
+      
+      ${pronoun} is a role model for others, showing that with passion, dedication, and the right skills, anything is possible.
+      The future holds great promise for ${name}, and ${pronoun.toLowerCase()} is sure to achieve even more remarkable accomplishments.
     `;
   };
 
@@ -173,6 +252,7 @@ const AboutComponent = () => {
         visible={isModalVisible}
         onClose={handleCloseModal}
         onSubmit={handleSubmitForm}
+        initialValues={savedFormData} // Pass savedFormData to pre-fill the form
       />
     </>
   );

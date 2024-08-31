@@ -6,6 +6,7 @@ const aboutSlice = createSlice({
     image: null, // Base64 string of the image
     name: 'John Doe',
     description: 'A brief description about John Doe.',
+    formData: null, // Store the form data submitted by the user
   },
   reducers: {
     setImage: (state, action) => {
@@ -17,9 +18,12 @@ const aboutSlice = createSlice({
     setDescription: (state, action) => {
       state.description = action.payload;
     },
+    setFormData: (state, action) => {
+      state.formData = action.payload;
+    },
   },
 });
 
-export const { setImage, setName, setDescription } = aboutSlice.actions;
+export const { setImage, setName, setDescription, setFormData } = aboutSlice.actions;
 
 export default aboutSlice.reducer;
