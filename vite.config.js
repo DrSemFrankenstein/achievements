@@ -28,5 +28,5 @@ export default defineConfig({
       },
     }),
   ],
-  base: '/',
+  base: '/achievements/', // Make sure this matches your GitHub Pages repository name
 });

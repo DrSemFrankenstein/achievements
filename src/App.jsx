@@ -31,12 +31,14 @@ function App() {
     <>
       <AppBar />
       <div className="content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<AboutComponent />} />
-          <Route path="/goals" element={<TodoComponent />} />
-          <Route path="/settings" element={<h1>Settings</h1>} />
-        </Routes>
+        <Router basename="/achievements">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/profile" element={<AboutComponent />} />
+            <Route path="/goals" element={<TodoComponent />} />
+            <Route path="/settings" element={<h1>Settings</h1>} />
+          </Routes>
+        </Router>
       </div>
     </>
   );
