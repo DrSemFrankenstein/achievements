@@ -3,12 +3,7 @@ import { Upload, Input, Card, Typography, Image, Button, Row, Col } from "antd";
 import ImgCrop from "antd-img-crop";
 import { PlusOutlined, EditOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setImage,
-  setName,
-  setDescription,
-  setFormData,
-} from "../../Redux/aboutSlice";
+import { setImage, setName, setDescription, setFormData } from "../../Redux/aboutSlice";
 import "antd/dist/reset.css";
 import UserFormModal from "./UserFormModal";
 import formData from "./formData.json"; // Import the formData JSON
@@ -25,21 +20,20 @@ const getBase64 = (file) =>
 
 const AboutComponent = () => {
   const dispatch = useDispatch();
-  const {
-    image,
-    name,
-    description,
-    formData: savedFormData,
-  } = useSelector((state) => state.about);
+  const { image, name, description, formData: savedFormData } = useSelector((state) => state.about);
 
+  const [fileList, setFileList] = useState(image ? [{ uid: "-1", url: image }] : []);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
 
   const handleChange = async ({ fileList: newFileList }) => {
+    setFileList(newFileList);
     const newFile = newFileList[0];
     if (newFile) {
       const base64 = await getBase64(newFile.originFileObj);
       dispatch(setImage(base64)); // Save the image as Base64 in the store
+    } else {
+      dispatch(setImage(null)); // Clear the image in the store if no file is present
     }
   };
 
@@ -49,6 +43,11 @@ const AboutComponent = () => {
     }
     setPreviewImage(file.url || file.preview);
     setPreviewOpen(true);
+  };
+
+  const handleRemove = () => {
+    setFileList([]);
+    dispatch(setImage(null)); // Clear the image in the store when removed
   };
 
   const uploadButton = (
@@ -169,16 +168,17 @@ const AboutComponent = () => {
                 <Upload
                   action=""
                   listType="picture-circle"
-                  fileList={image ? [{ uid: "-1", url: image }] : []}
+                  fileList={fileList}
                   onChange={handleChange}
                   onPreview={handlePreview}
+                  onRemove={handleRemove} // Handle the remove action
                   showUploadList={{
                     showPreviewIcon: true,
                     showRemoveIcon: true,
                   }}
                   style={{ display: "flex", justifyContent: "center" }}
                 >
-                  {!image && uploadButton}
+                  {fileList.length === 0 && uploadButton}
                 </Upload>
               </ImgCrop>
               {previewImage && (
