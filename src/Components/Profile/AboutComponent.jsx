@@ -165,7 +165,7 @@ const AboutComponent = () => {
                 height: "100%",
               }}
             >
-              <ImgCrop rotationSlider aspect={1}>
+              <ImgCrop showGrid rotationSlider aspectSlider showReset aspect={1}>
                 <Upload
                   action=""
                   listType="picture-circle"
